@@ -10,7 +10,6 @@ import { findByTestAttr, checkProps } from './../test/testUtils';
  * @param
  * @returns {JSXElement} - Rendered component (or null if `success` prop is ...)
  */
-Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const defaultProps = { success: false };
 const setup = (props={}) => {
