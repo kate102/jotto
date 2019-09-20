@@ -35,13 +35,21 @@ describe('render', () => {
 })
 
 describe('update state', () => {
+    let wrapper;
+    beforeEach(() => {
+        const initialState = { success: false };
+        wrapper = setup(initialState);
+    });
     test('it renders the component without error', () => {
-
+        const component = findByTestAttr(wrapper, "component-input");
+        expect(component.length).toBe(1);
     })
     test('it does not render the input box', () => {
-
+        const component = findByTestAttr(wrapper, "input-box");
+        expect(component.length).toBe(1);
     })
     test('it does not render the submit button', () => {
-
+        const component = findByTestAttr(wrapper, "submit-button");
+        expect(component.length).toBe(1);
     })
 })
