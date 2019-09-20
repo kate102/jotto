@@ -19,37 +19,45 @@ const setup = (initialState={}) => {
 
 describe('render', () => {
     describe('word has not been guessed', () => {
-        test('it renders the component without error', () => {
 
+        let wrapper;
+        beforeEach(() => {
+            const initialState = { success: false };
+            wrapper = setup(initialState);
+        });
+        test('it renders the component without error', () => {
+            const component = findByTestAttr(wrapper, "component-input");
+            expect(component.length).toBe(1);
         })
         test('it renders the input box', () => {
-
+            const component = findByTestAttr(wrapper, "input-box");
+            expect(component.length).toBe(1);
         })
         test('it renders the submit button', () => {
-
+            const component = findByTestAttr(wrapper, "submit-button");
+            expect(component.length).toBe(1);
         })
     })
+
     describe('word has been guessed', () => {
-        
+
+        let wrapper;
+        beforeEach(() => {
+            const initialState = { success: true };
+            wrapper = setup(initialState);
+        });
+        test('it renders the component without error', () => {
+            const component = findByTestAttr(wrapper, "component-input");
+            expect(component.length).toBe(1);
+        })
+        test('it doesnt render the input box', () => {
+            const component = findByTestAttr(wrapper, "input-box");
+            expect(component.length).toBe(0);
+        })
+        test('it doesnt render the submit button', () => {
+            const component = findByTestAttr(wrapper, "submit-button");
+            expect(component.length).toBe(0);
+        })
     })
 })
 
-describe('update state', () => {
-    let wrapper;
-    beforeEach(() => {
-        const initialState = { success: false };
-        wrapper = setup(initialState);
-    });
-    test('it renders the component without error', () => {
-        const component = findByTestAttr(wrapper, "component-input");
-        expect(component.length).toBe(1);
-    })
-    test('it does not render the input box', () => {
-        const component = findByTestAttr(wrapper, "input-box");
-        expect(component.length).toBe(1);
-    })
-    test('it does not render the submit button', () => {
-        const component = findByTestAttr(wrapper, "submit-button");
-        expect(component.length).toBe(1);
-    })
-})
