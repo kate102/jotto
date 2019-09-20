@@ -1,10 +1,13 @@
 import checkPropTypes from 'check-prop-types';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
 import rootReducer from '../src/reducers';
+import { middlewares } from '../src/configureStore';
+
 
 export const storeFactory = (initialState) => {
-    return createStore(rootReducer, initialState);
+    const crateStoreWithMiddleware = applyMiddleware(...middlewares)(createStore)
+    return crateStoreWithMiddleware(rootReducer, initialState);
 }
 /**
  * Functional react component for congratulatory message.
