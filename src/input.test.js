@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../test/testUtils';
 import Input from './Input';
+// import { tsExternalModuleReference } from '@babel/types';
 
 
 /**
@@ -61,3 +62,17 @@ describe('render', () => {
     })
 })
 
+describe('redux props', () => {
+    test('has success pience of state as prop', () => {
+        const success = true;
+        const wrapper = setup({ success })
+        const successProp = wrapper.instance().props.success
+        expect(successProp).toBe(success)
+    })
+    test('`guessWord` action creator is a function prop', () => {
+        const wrapper = setup()
+        const guessWordProp = wrapper.instance().props.guessWord
+        // console.log(wrapper.instance().props)
+        expect(guessWordProp).toBeInstanceOf(Function)
+    })
+})
