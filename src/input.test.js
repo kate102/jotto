@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../test/testUtils';
 import Input from './Input';
-// import { tsExternalModuleReference } from '@babel/types';
+// instance method returns a React component
 
 
 /**
