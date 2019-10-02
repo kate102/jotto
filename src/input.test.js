@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../test/testUtils';
 import Input, { UnconnectedInput } from './Input';
+import { tsExternalModuleReference } from '@babel/types';
 // instance method returns a React component
 
 
@@ -78,15 +79,31 @@ describe('redux props', () => {
 })
 
 describe('guessWord action creator call', () => {
-    test('calls guessWord when button is clicked', () => {
-        const guessWordMock = jest.fn()
+    let guessWordMock
+    let wrapper
+    const guessedWord = "train"
+    beforeEach(() => {
+        guessWordMock = jest.fn()
         const props = {
             guessWord: guessWordMock
         }
-        const wrapper = shallow(<UnconnectedInput {...props} />)
-        const submitButton = findByTestAttr(wrapper, 'submit-button')
-        submitButton.simulate('click')
+    wrapper = shallow(<UnconnectedInput {...props} />)
+
+    // add value to input box
+    wrapper.setState({ currentGuess: guessedWord })
+    const submitButton = findByTestAttr(wrapper, 'submit-button')
+    submitButton.simulate('click', { preventDefault() {} })
+    })
+
+    test('calls guessWord when button is clicked', () => {
         const guessWordCallCount = guessWordMock.mock.calls.length
         expect(guessWordCallCount).toBe(1)
+    })
+    test('calls guessWord with input value as arguement', () => {
+        const guessWordArg = guessWordMock.mock.calls[0][0]
+        expect(guessWordArg).toBe(guessedWord)
+    })
+    test('input box clears on submit', () => {
+        expect(wrapper.state('currentGuess')).toBe('')
     })
 })
